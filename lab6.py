@@ -1,7 +1,6 @@
-import random
-from flask import Flask, jsonify, abort, send_from_directory, render_template, redirect, url_for
+from flask import Flask, jsonify, abort, render_template
+
 from find import Game
-from os import urandom
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 names = Game.names
@@ -27,12 +26,11 @@ def start_game(level):
 
 @app.route('/api/finish/<int:game_id>/<string:name>', methods=['GET'])
 def finish_game(game_id, name):
-    game = games[game_id]
-
-    if game.name == name:
-        return jsonify({'result': True, 'name': game.name})
-    else:
-        return jsonify({'result': False, 'name': game.name})
+    try:
+        game = games[game_id]
+        return jsonify({'result': game.test_name(name)})
+    except KeyError:
+        return abort(400)
 
 
 if __name__ == '__main__':

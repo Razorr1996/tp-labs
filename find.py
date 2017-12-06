@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 from functools import lru_cache
-from urllib import parse
+from os.path import join
 from random import choice, choices, getrandbits
+from typing import List
+from urllib import parse
+
 import requests
 from lxml import html
-from typing import List
-from os.path import join
 
 
 @lru_cache(maxsize=1)
@@ -41,16 +42,19 @@ class Game:
         elif level == 3:
             m = 100
         _n = Game.names[:m]
-        self.name = choice(_n)
-        self.pic = choice(get_images(self.name))
-        _s = set(choices(_n, k=3) + [self.name])
+        self._name = choice(_n)
+        self.pic = choice(get_images(self._name))
+        _s = set(choices(_n, k=3) + [self._name])
         while len(_s) < 4:
             _s.add(choice(_n))
         self.vars = list(_s)
         self.id = getrandbits(128)
 
+    def test_name(self, ans: str) -> bool:
+        return ans == self._name
+
     def __repr__(self):
-        return "Game '%s'" % self.name
+        return "Game '%s'" % self._name
 
 
 if __name__ == '__main__':
