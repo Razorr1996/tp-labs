@@ -29,10 +29,10 @@ def start_game(level):
 def finish_game(game_id, name):
     game = games[game_id]
 
-    if game['name'].strip() == name:
-        return jsonify({'result': True, 'name': game['name']})
+    if game.name == name:
+        return jsonify({'result': True, 'name': game.name})
     else:
-        return jsonify({'result': False, 'name': game['name']})
+        return jsonify({'result': False, 'name': game.name})
 
 
 if __name__ == '__main__':
