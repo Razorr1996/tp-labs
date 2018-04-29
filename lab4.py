@@ -1,9 +1,8 @@
 #!/usr/bin/env python3.6
-from parameterized import parameterized
-from lab1 import BaseTest
-from typing import *
-from lxml import html
 import argparse
+from typing import *
+
+from lxml import html
 
 
 def extr_name(filename: str) -> Dict[str, Any]:
@@ -22,7 +21,7 @@ def extr_name(filename: str) -> Dict[str, Any]:
                 male[int(tds[0].text)] = tds[1].text
                 female[int(tds[0].text)] = tds[2].text
     except IOError:
-        print(f'I/O error')
+        print('I/O error')
     except ValueError:
         print("Could not convert data")
     return {'male': male, 'female': female, 'year': y}
@@ -40,20 +39,20 @@ def main():
     for fname in args.FILE + (args.file if args.file else []):
         d = extr_name(fname.name)
         if args.top10:
-            print(f'Top 10 from {fname.name} in {str(d["year"])} year:')
+            print('Top 10 from {0} in {1} year:'.format(fname.name, str(d["year"])))
             print(' {0:3} {1:11} {2:11}'.format('Num', 'Male', 'Female'))
             for i in range(1, 11):
-                print(f' {i:3d} {d["male"][i]:11s} {d["female"][i]:11s}')
+                print(' {0:3d} {1:11s} {2:11s}'.format(i, d["male"][i], d["female"][i]))
         else:
-            m = sorted([f'{v} {str(k)}' for (k, v) in d['male'].items()])
-            f = sorted([f'{v} {str(k)}' for (k, v) in d['female'].items()])
-            print(f'Alphabetic from {fname.name} in {str(d["year"])} year:')
+            m = sorted(['{0} {1}'.format(v, str(k)) for (k, v) in d['male'].items()])
+            f = sorted(['{0} {1}'.format(v, str(k)) for (k, v) in d['female'].items()])
+            print('Alphabetic from {0} in {1} year:'.format(fname.name, str(d["year"])))
             print(' Male names:')
             for i in m[:21]:
-                print(f'  {i}')
+                print('  {0}'.format(i))
             print(' Female names:')
             for i in m[:21]:
-                print(f'  {i}')
+                print('  {0}'.format(i))
             pass
 
 

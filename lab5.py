@@ -25,7 +25,7 @@ def make_text(d: Dict[str, List[str]]):
     l = len(d) * 2
     f = True
     k = random.choice(list(d.keys())[:-1])
-    a: List[str] = []
+    a = []  # type: List[str]
     while f:
         k = random.choice(d[k])
         a.append(k)

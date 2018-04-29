@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 from parameterized import parameterized
 from lab1 import BaseTest
 import re

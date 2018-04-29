@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 import unittest
 from functools import reduce
 from typing import List, Tuple, Any, Callable
@@ -31,8 +31,7 @@ def tp(tuples: List[Tuple[Any, ...]]) -> List[Tuple]:
 
 class BaseTest(unittest.TestCase):
     def print_test(self, name: str, m: Callable, exp, *args):
-        # print("%s%s = %s" % (m.__name__, str(args), str(exp)))
-        print(f"{m.__name__}{str(args)} = {str(exp)}")
+        print("{0}{1} = {2}".format(m.__name__,str(args[:]),str(exp)))
         self.assertEqual(m(*args), exp)
 
 
